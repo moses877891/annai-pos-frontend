@@ -70,7 +70,6 @@ function Nav() {
             <Link to="/products">Products</Link>
             <Link to="/create-product">New Product</Link>
             <Link to="/import-products">Import</Link>
-            <Link to="/promotions">Promotions</Link>
           </>
         )}
 
@@ -104,7 +103,7 @@ export default function App() {
         {role === 'admin' && (
         <Route path="/import-products" element={<Private><><Nav/><ProductImport/></></Private>}/>
         )}
-        {role === 'admin' || role === 'manager' && (
+        {role === 'admin' && (
         <Route path="/promotions" element={<Private><><Nav/><Promotions/></></Private>}/>
         )}
         <Route path="*" element={<Navigate to="/pos" replace/>}/>
