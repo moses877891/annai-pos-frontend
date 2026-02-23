@@ -7,32 +7,17 @@
 }
 
 @media print {
-  /* Hide everything except the receipt container(s) */
   body * {
     visibility: hidden;
   }
-
-  /* Support both receipt IDs used in the app */
-  #receipt-area, #receipt-print, #receipt-area *, #receipt-print * {
+  #receipt-area, #receipt-area * {
     visibility: visible;
   }
-
-  /* Ensure the receipt prints as a single block and avoid print-time
-     animations/transforms that can cause tiling or repeated renderings */
-  #receipt-area, #receipt-print {
+  #receipt-area {
     position: absolute;
     left: 0;
     top: 0;
     width: 80mm;
-    margin: 0;
-    padding: 0;
-    page-break-inside: avoid;
-    break-inside: avoid;
-    page-break-after: auto;
-    page-break-before: auto;
-    transform: none !important;
-    -webkit-transform: none !important;
-    animation: none !important;
   }
 }
 
