@@ -7,17 +7,35 @@
 }
 
 @media print {
+  /* Ensure page matches receipt width and no extra chrome */
+  html, body {
+    width: 80mm;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    font-size: 12px;
+  }
+
+  /* Hide everything except the receipt */
   body * {
     visibility: hidden;
   }
   #receipt-area, #receipt-area * {
     visibility: visible;
   }
+
+  /* Use normal flow so the receipt prints as a single continuous document
+     and avoid forced page breaks inside the receipt */
   #receipt-area {
-    position: absolute;
-    left: 0;
-    top: 0;
+    position: static;
+    left: auto;
+    top: auto;
     width: 80mm;
+    margin: 0;
+    padding: 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 }
 
