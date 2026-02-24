@@ -1,26 +1,5 @@
 @import "tailwindcss";
 
-@media print {
-  @page { size: 80mm auto; margin: 0; }
-  body { width: 80mm; font-size: 12px; }
-  .no-print { display: none !important; }
-}
-
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  #receipt-area, #receipt-area * {
-    visibility: visible;
-  }
-  #receipt-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 80mm;
-  }
-}
-
 @keyframes fade {
   0% { opacity: 0; transform: translateY(-10px); }
   10% { opacity: 1; transform: translateY(0); }
@@ -30,4 +9,58 @@
 
 .animate-fade {
   animation: fade 2s ease-out forwards;
+}
+
+
+/* =========================
+   CUSTOMER RECEIPT — THERMAL 80mm (VARIABLE HEIGHT)
+   Applies to POS (#receipt-area) and Receipts page (#receipt-print)
+   ========================= */
+@media print {
+  /* Paper: 80mm wide, height grows with content */
+  @page {
+    size: 80mm 80mm;
+    margin: 0;
+  }
+
+  /* Reset page box */
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  /* Hide everything by default */
+  body * {
+    visibility: hidden !important;
+  }
+
+  /* Show only the receipt blocks */
+  #receipt-area, #receipt-print,
+  #receipt-area * , #receipt-print * {
+    visibility: visible !important;
+  }
+
+  /* Pin the print block to the top-left of the page */
+  #receipt-area, #receipt-print {
+    position: fixed !important;   /* <— fixed avoids layout-induced gaps */
+    top: 0 !important;
+    left: 0 !important;
+    width: 80mm !important;       /* exact paper width */
+    max-width: 80mm !important;
+    height: 80mm !important;      /* initial height, will grow with content */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    /* Optional: prevent accidental page breaks in the middle of totals */
+    page-break-inside: avoid;
+  }
+
+  /* If you have any overlay classes that hide/show modals, neutralize them for print */
+  .modal-overlay {
+    /* let it exist but not affect receipt */
+    visibility: hidden !important;
+  }
+
+  /* Never show any .no-print elements */
+  .no-print { display: none !important; }
 }
