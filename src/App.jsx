@@ -10,6 +10,7 @@ import Products from "./pages/Products.jsx";
 import ProductImport from "./pages/ProductImport.jsx";
 import Promotions from "./pages/Promotions.jsx";
 import KOTPrint from "./pages/KOTPrint.jsx";
+import ReceiptPrint from "./pages/ReceiptPrint.jsx";
 
 function Login() {
   const nav = useNavigate();
@@ -89,6 +90,8 @@ export default function App() {
         <Route path="/" element={<Private><><Nav /><POS /></></Private>} />
         <Route path="/pos" element={<Private><><Nav /><POS /></></Private>} />
         <Route path="/receipts" element={<Private><><Nav /><Receipts /></></Private>} />
+        <Route path="/print/:invoiceNo" element={<Private><ReceiptPrint/></Private>} />
+        <Route path="/kot/:invoiceNo" element={<Private><KOTPrint /></Private>}/>
         {role === 'admin' && (
           <Route path="/dashboard" element={<Private><><Nav /><Dashboard /></></Private>} />
         )}
@@ -107,7 +110,6 @@ export default function App() {
         {role === 'admin' && (
           <Route path="/promotions" element={<Private><><Nav /><Promotions /></></Private>} />
         )}
-        <Route path="/kot/:invoiceNo" element={<Private><KOTPrint /></Private>}/>
         <Route path="*" element={<Navigate to="/pos" replace />} />
       </Routes>
     </>

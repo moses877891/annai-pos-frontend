@@ -164,10 +164,10 @@ export default function Receipts() {
 
                         <div className="mt-3 space-y-2">
                             <button
-                                className="w-full bg-rose-600 text-white py-2 rounded"
-                                onClick={() => window.print()}
+                                className="mt-3 w-full bg-rose-600 py-2 text-white rounded"
+                                onClick={() => window.open(`/print/${selected.invoiceNo}`, "_blank")}
                             >
-                                Print
+                                Print Receipt
                             </button>
                             <button
                                 className="w-full bg-gray-700 text-white py-2 rounded"

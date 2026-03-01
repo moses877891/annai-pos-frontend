@@ -501,7 +501,7 @@ export default function POS() {
 
                         <div id="receipt-area" className="text-sm p-2">
 
-                            <div className="text-center font-bold">Annai Restaurant</div>
+                            <div className="text-center font-bold">Annai Fastfood</div>
                             <div className="text-center text-xs">Invoice: {invoice.invoiceNo}</div>
 
                             <div className="text-xs mt-2">--------------------------------</div>
@@ -557,9 +557,9 @@ export default function POS() {
 
                         <button
                             className="mt-3 w-full bg-rose-600 py-2 text-white rounded"
-                            onClick={() => window.print()}
+                            onClick={() => window.open(`/print/${invoice.invoiceNo}`, "_blank")}
                         >
-                            Print
+                            Print Receipt
                         </button>
                         <button
                             className="mt-2 w-full bg-gray-800 text-white py-2 rounded"

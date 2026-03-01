@@ -71,7 +71,7 @@ export default function KOTPrint() {
 
         const t = setTimeout(() => {
             // 👇 Choose the size you want
-            withPrintPageSize('80mm 80mm', () => window.print());
+            withPrintPageSize('80mm auto', () => window.print());
             // or: withPrintPageSize('80mm auto', () => window.print());
             // or: withPrintPageSize('58mm auto', () => window.print());
         }, 30);
@@ -98,7 +98,7 @@ export default function KOTPrint() {
         <div className="p-3">
             {/* KOT content — ONLY this should print */}
             <div id="kot-print-area">
-                <div className="text-center font-extrabold text-base">Annai Restaurant</div>
+                <div className="text-center font-extrabold text-base">Annai Fastfood</div>
 
                 {/* ✅ Invoice Number included here */}
                 <div className="text-center text-[11px] font-semibold">
@@ -112,7 +112,7 @@ export default function KOTPrint() {
                 <div className="text-[10px]">--------------------------------</div>
 
                 {groupedItems.map((i, idx) => (
-                    <div key={idx} className="flex justify-between text-sm font-semibold">
+                    <div key={idx} className="flex justify-between text-xs">
                         <span>{i.name}{i.variantName ? ` (${i.variantName})` : ""}</span>
                         <span>x{i.qty}</span>
                     </div>
