@@ -9,6 +9,7 @@ import CreateProduct from "./pages/CreateProduct.jsx";
 import Products from "./pages/Products.jsx";
 import ProductImport from "./pages/ProductImport.jsx";
 import Promotions from "./pages/Promotions.jsx";
+import KOTPrint from "./pages/KOTPrint.jsx";
 
 function Login() {
   const nav = useNavigate();
@@ -25,9 +26,9 @@ function Login() {
       <form onSubmit={submit} className="bg-white p-6 rounded shadow w-80 space-y-3">
         <h1 className="text-xl font-semibold text-rose-700">Annai POS Login</h1>
         <input className="border p-2 w-full" placeholder="Username"
-               value={f.username} onChange={e=>setF({...f,username:e.target.value})}/>
+          value={f.username} onChange={e => setF({ ...f, username: e.target.value })} />
         <input className="border p-2 w-full" placeholder="Password" type="password"
-               value={f.password} onChange={e=>setF({...f,password:e.target.value})}/>
+          value={f.password} onChange={e => setF({ ...f, password: e.target.value })} />
         <button className="bg-rose-600 hover:bg-rose-700 text-white w-full py-2 rounded">Login</button>
       </form>
     </div>
@@ -36,7 +37,7 @@ function Login() {
 
 function Private({ children }) {
   const token = localStorage.getItem('token');
-  return token ? children : <Navigate to="/login" replace/>;
+  return token ? children : <Navigate to="/login" replace />;
 }
 
 function Nav() {
@@ -84,29 +85,30 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/" element={<Private><><Nav/><POS/></></Private>}/>
-        <Route path="/pos" element={<Private><><Nav/><POS/></></Private>}/>
-        <Route path="/receipts" element={<Private><><Nav/><Receipts/></></Private>}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Private><><Nav /><POS /></></Private>} />
+        <Route path="/pos" element={<Private><><Nav /><POS /></></Private>} />
+        <Route path="/receipts" element={<Private><><Nav /><Receipts /></></Private>} />
         {role === 'admin' && (
-        <Route path="/dashboard" element={<Private><><Nav/><Dashboard/></></Private>}/>
+          <Route path="/dashboard" element={<Private><><Nav /><Dashboard /></></Private>} />
         )}
         {role === 'admin' && (
-        <Route path="/categories" element={<Private><><Nav/><Categories/></></Private>}/>
+          <Route path="/categories" element={<Private><><Nav /><Categories /></></Private>} />
         )}
         {role === 'admin' && (
-        <Route path="/create-product" element={<Private><><Nav/><CreateProduct/></></Private>}/>
+          <Route path="/create-product" element={<Private><><Nav /><CreateProduct /></></Private>} />
         )}
         {role === 'admin' && (
-          <Route path="/products" element={<Private><><Nav/><Products/></></Private>} />
+          <Route path="/products" element={<Private><><Nav /><Products /></></Private>} />
         )}
         {role === 'admin' && (
-        <Route path="/import-products" element={<Private><><Nav/><ProductImport/></></Private>}/>
+          <Route path="/import-products" element={<Private><><Nav /><ProductImport /></></Private>} />
         )}
         {role === 'admin' && (
-        <Route path="/promotions" element={<Private><><Nav/><Promotions/></></Private>}/>
+          <Route path="/promotions" element={<Private><><Nav /><Promotions /></></Private>} />
         )}
-        <Route path="*" element={<Navigate to="/pos" replace/>}/>
+        <Route path="/kot/:invoiceNo" element={<Private><KOTPrint /></Private>}/>
+        <Route path="*" element={<Navigate to="/pos" replace />} />
       </Routes>
     </>
   );

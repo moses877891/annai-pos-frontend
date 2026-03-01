@@ -12,16 +12,14 @@
 }
 
 
-/* =========================
-   CUSTOMER RECEIPT — THERMAL 80mm (VARIABLE HEIGHT)
-   Applies to POS (#receipt-area) and Receipts page (#receipt-print)
-   ========================= */
+/* ============================================
+   THERMAL PRINTING (Tailwind v4 friendly)
+   - Default receipt page: 80mm wide, auto height
+   - Exactly one print target made visible using body class
+   ============================================ */
 @media print {
-  /* Paper: 80mm wide, height grows with content */
-  @page {
-    size: 80mm 80mm;
-    margin: 0;
-  }
+  /* DEFAULT PAGE SIZE → RECEIPTS (customer copy) */
+  @page { size: 80mm auto; margin: 0; }
 
   /* Reset page box */
   html, body {
@@ -30,37 +28,65 @@
     background: #fff !important;
   }
 
-  /* Hide everything by default */
-  body * {
+  /* Hide everything by default when we are in a "print mode" */
+  body.print-pos-receipt * ,
+  body.print-receipt * ,
+  body.print-kot * {
     visibility: hidden !important;
   }
 
-  /* Show only the receipt blocks */
-  #receipt-area, #receipt-print,
-  #receipt-area * , #receipt-print * {
+  /* ---------- POS receipt target ---------- */
+  body.print-pos-receipt #receipt-area,
+  body.print-pos-receipt #receipt-area * {
     visibility: visible !important;
   }
-
-  /* Pin the print block to the top-left of the page */
-  #receipt-area, #receipt-print {
-    position: fixed !important;   /* <— fixed avoids layout-induced gaps */
+  body.print-pos-receipt #receipt-area {
+    position: fixed !important;
     top: 0 !important;
     left: 0 !important;
-    width: 80mm !important;       /* exact paper width */
+    width: 80mm !important;
     max-width: 80mm !important;
-    height: 80mm !important;      /* initial height, will grow with content */
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    /* Optional: prevent accidental page breaks in the middle of totals */
     page-break-inside: avoid;
   }
 
-  /* If you have any overlay classes that hide/show modals, neutralize them for print */
-  .modal-overlay {
-    /* let it exist but not affect receipt */
-    visibility: hidden !important;
+  /* ---------- Receipts page target ---------- */
+  body.print-receipt #receipt-print,
+  body.print-receipt #receipt-print * {
+    visibility: visible !important;
+  }
+  body.print-receipt #receipt-print {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 80mm !important;
+    max-width: 80mm !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    page-break-inside: avoid;
   }
 
-  /* Never show any .no-print elements */
+  /* ---------- KOT target (content only)
+     NOTE: page size for KOT is set from JS (80mm 80mm)
+  ------------------------------------------- */
+  body.print-kot #kot-print-area,
+  body.print-kot #kot-print-area * {
+    visibility: visible !important;
+  }
+  body.print-kot #kot-print-area {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 80mm !important;
+    height: 80mm !important; /* content box; page size set via JS @page */
+    padding: 4px;
+    font-size: 12px;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Never show .no-print elements in any mode */
   .no-print { display: none !important; }
 }
