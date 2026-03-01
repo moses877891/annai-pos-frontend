@@ -169,6 +169,12 @@ export default function Receipts() {
                             >
                                 Print
                             </button>
+                            <button
+                                className="w-full bg-gray-700 text-white py-2 rounded"
+                                onClick={() => window.open(`/kot/${selected.invoiceNo}`, "_blank")}
+                            >
+                                Print KOT
+                            </button>
 
                             <div className="space-y-1">
                                 <input

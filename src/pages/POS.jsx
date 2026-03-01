@@ -561,6 +561,12 @@ export default function POS() {
                         >
                             Print
                         </button>
+                        <button
+                            className="mt-2 w-full bg-gray-800 text-white py-2 rounded"
+                            onClick={() => window.open(`/kot/${invoice.invoiceNo}`, "_blank")}
+                        >
+                            Print KOT
+                        </button>
                     </div>
                 </div>
             )}
